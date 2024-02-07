@@ -1,0 +1,136 @@
+// It's OK to write comments in this JSON configuration file,
+// comments will be stripped when this file is loaded.
+{
+     // Set to true if your app contains a errorHandler middleware:
+    // http://expressjs.com/guide.html#error-handling
+    "expressErrorHandling": false,
+
+     // By setting this field to "force", your app will be forced to use RS256 algorithm when authenticating install/uninstall callbacks.
+    // Make sure to opt-in to signed-install feature from the app descriptor file(atlassian-connect.json) to get this security benefit in advance.
+    "signed-install": "force",
+
+    // "development" is the default environment.
+    // To change, set NODE_ENV (http://expressjs.com/api.html#app.configure).
+    "development": {
+        // Port the Express server will listen on.
+        "port": 3000,
+        // Use views/unauthorized.hbs for error page.
+        "errorTemplate": true,
+        // atlassian-connect-express currently integrates with Sequelize for
+        // persistence to store the host client information (i.e. client key,
+        // host public key etc.). When no adapter is specified, it defaults to
+        // memory.
+        //
+        // To specify a storage other than memory, set
+        // "dialect" to one of Sequelize's other supported dialects:
+        // http://docs.sequelizejs.com/manual/installation/usage.html#dialects
+        //
+        // To use a custom storage adapter, configure it in "store".
+        // Make sure to register the adapter factory in app.js:
+        //
+        //   ace.store.register(adapterName, factoryFunction)
+        //
+        // At https://bitbucket.org/atlassian/atlassian-connect-express/src/master/lib/store/,
+        // see index.js and sequelize.js for code demonstrating how to write
+        // a conformant adapter. The default values are as follows:
+        //
+        //   "store": {
+        //     "adapter": "sequelize",
+        //     "dialect": "sqlite3",
+        //     "storage": ":memory:"
+        //   },
+        //
+        // To configure PostgreSQL, the following can be used:
+        //
+        //   "store": {
+        //     "adapter": "sequelize",
+        //     "dialect": "postgres",
+        //     "url": "postgres://localhost/my_app_database"
+        //   },
+        //
+        // An appropriate DB driver for Sequelize is required for storage other than memory.
+        // For PostgreSQL, run the following command:
+        //
+        //   npm install --save pg
+        //"store": {
+        //    "adapter": "sequelize",
+        //   "dialect": "sqlite3",
+        //   "logging": false,
+        //   "type": "memory"
+        //}
+        "store": {
+            "adapter": "sequelize",
+            "dialect": "postgres",         
+            "url": "$DB",
+            "logging": false
+        },
+        "localBaseUrl" : "$DEV_URL"
+    },
+    // Configuration for production, which is enabled by setting
+    // the NODE_ENV=production environment variable.
+    "production": {
+        // PaaS like Heroku will provide HTTP port via environement variable.
+        "port": "5432",
+        // Use views/unauthorized.hbs for error page.
+        "errorTemplate": true,
+        // Public URL to production app.
+        "localBaseUrl": "https://usujira.sykorait.cloud/",
+        "store": {
+            // Don't use memory storage for production, otherwise
+            // data in the storage will go away when the app server restarts. DATABASE_URL
+            // Here, we use PostgreSQL:
+            
+            "type": "postgres",
+            // PaaS like Heroku will provide DB connection URL through environment variable.
+            "url": "$DATABASE_URL",
+            "logging": false,
+            "ssl": true,
+            "dialect": "postgres",
+            "dialectOptions": {
+            "ssl": {"require":true,
+                "rejectUnauthorized": false
+            }
+            }
+        },
+        // The app can only be registered by the products on these domains:
+        "whitelist": [
+            "*.jira-dev.com",
+            "*.atlassian.net",
+            "*.atlassian.com",
+            "*.jira.com"
+        ]
+    },
+    "staging": {
+        // PaaS like Heroku will provide HTTP port via environement variable.
+        "port": "5432",
+        // Use views/unauthorized.hbs for error page.
+        "errorTemplate": true,
+        // Public URL to production app.
+        "localBaseUrl": "https://usu-connector-for-jira-dev.herokuapp.com/",
+        "store": {
+            // Don't use memory storage for production, otherwise
+            // data in the storage will go away when the app server restarts.
+            // Here, we use PostgreSQL:
+
+            "type": "postgres",
+            // PaaS like Heroku will provide DB connection URL through environment variable.
+            "url": "$DATABASE_URL",
+            "logging": false,
+            "ssl": true,
+            "dialect": "postgres",
+            "dialectOptions": {
+                "ssl": {"require":true,
+                    "rejectUnauthorized": false
+                }
+            }
+        },
+        // The app can only be registered by the products on these domains:
+        "whitelist": [
+            "*.jira-dev.com",
+            "*.atlassian.net",
+            "*.atlassian.com",
+            "*.jira.com"
+        ]
+    },
+    "product": "jira"
+}

@@ -1,0 +1,131 @@
+/* App styles */
+
+body {
+  background-color: #ffffff;
+}
+
+#search-wh-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*DELETE FLAG BUTTONS SECTION*/
+.deleteflagbuttons-cfj {
+    --aui-btn-bg: #DE350B;
+    --aui-btn-text: white;
+}
+
+.deleteflagbuttons-cfj:hover {
+    --aui-btn-bg: #FF5630;
+}
+
+.deleteflagbuttons-cfj:focus {
+    --aui-btn-bg: #DE350B;
+    --aui-btn-text: white;
+}
+
+#delete-confirm-p-cfj {
+    margin-bottom: 15px;
+}
+
+/*SELECT INTERFACE BUTTONS SECTION*/
+.interfaceContainer {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+
+.interfaceContainerItem {
+      margin-left: auto;
+}
+
+.interfaceContainerButtons {
+    margin: 0px 0px 0px 10px;
+    border-left: 1px solid #dfe1e6;
+}
+
+.object-mapping-heading {
+    padding: 0px 10px 20px;
+}
+
+.interfaceControl {
+    padding: 0px 0px 7px 10px;
+}
+
+/*REFRESH-WEBHOOK BUTTONS*/
+.refresh-valid-button {
+   --aui-btn-bg: #00875a;
+   --aui-btn-text: #FFF;
+}
+.refresh-valid-button:hover {
+   --aui-btn-bg: #36b37e;
+   --aui-btn-text: #FFF;
+}
+.refresh-valid-button:active {
+   --aui-btn-bg: #00875a;
+   --aui-btn-text: #FFF;
+}
+.refresh-invalid-button {
+   --aui-btn-bg: #de350b;
+   --aui-btn-text: #FFF;
+}
+.refresh-invalid-button:hover {
+   --aui-btn-bg: #ff5630;
+   --aui-btn-text: #FFF;
+}
+.refresh-invalid-button:active {
+   --aui-btn-bg: #de350b;
+   --aui-btn-text: #FFF;
+}
+
+.description-cfj {
+    font-size: 11px;
+    line-height: 1.81818182;
+    color: #6b778c;
+    margin: 5px 0 0;
+}
+
+.wh-url-title-cfj {
+    font-size: 14px;
+    line-height: 1.81818182;
+    color: #6b778c;
+    margin: 20px 0 0 0;
+}
+
+.web-description-cfj {
+    font-size: 13px;
+    line-height: 1.81818182;
+    color: #6b778c;
+    margin: 0 0 0 0;
+}
+
+.underline-cfj{
+    border-bottom: 1px solid #ececec;
+    width: 100%;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.license-a-market-cfj, .license-a-upm-cfj{
+    color: #0052CC;
+}
+
+.display-mode-display-cfj {
+    display: none;
+}
+
+.event-group-cfj {
+    float: left;
+    margin: 0px 40px 10px 0;
+    padding: 5px 0px 0px;
+}
+
+.event-group-cfj ul {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

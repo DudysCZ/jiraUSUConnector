@@ -1,0 +1,276 @@
+{{!< layout}}
+<script src="/js/interfaces-page.js"></script>
+<div class="field-group">
+    <div class="object-mapping-heading">
+        <h2>{{title}}</h2>
+    </div>
+    <div class="interfaceControl">
+        <form class="aui" id="interfacesControlForm">
+            <aui-label for="interface-select" style="display: block; padding: 10px 0px">Choose your interface:</aui-label>
+            <div class="interfaceContainer">
+                <div>
+                    <select id="interface-select" style="width: 250px">
+                        <!-- <option disabled selected value>Select an interface</option>-->
+                        <option></option>
+                        {{#each data}}
+                                <option value="{{this.id}}">{{this.Name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="interfaceContainerButtons">
+                    <span class="aui-icon aui-icon-small aui-iconfont-chevron-right" style="color: #b0b1b4;"></span>
+                    <button class="aui-button  aui-button-link" id="interface-delete-button" type="button">Delete</button>
+                </div>
+                <div class="interfaceContainerItem">
+                    <button class="aui-button aui-button-primary" id="interface-add-button" type="button" style="margin-left: 10px;">+ Create an Interface</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="aui-tabs horizontal-tabs">
+    <ul class="tabs-menu">
+        <li class="menu-item active-tab">
+            <a href="#tabs-interfaces">Interface</a>
+        </li>
+        <li class="menu-item">
+            <a href="#tabs-oauth2">OAuth2</a>
+        </li>
+        <li class="menu-item">
+            <a href="#tabs-basic-auth">Basic Auth</a>
+        </li>
+        <li class="menu-item">
+            <a href="#tabs-webhooks">Webhooks</a>
+        </li>
+    </ul>
+    <div id="hidden-env" style="display:none;">{{localBaseUrl}}</div>
+    <div class="tabs-pane active-pane" id="tabs-interfaces">
+        <form id="adminform" class="aui">
+            <div class="field-group">
+                <label for="Name-text-input">Interface name<span class="aui-icon icon-required">required</span></label>
+                <input class="text medium-long-field" type="text" id="Name-text-input" name="Name-text-input" title="Name Text input" required="required" />
+                <span class="underline-cfj" style=" margin: 15px 0px 7px 0px;"></span>
+            </div>
+            <div class="field-group">
+                <label for="URL-text-input">USU URL<span class="aui-icon icon-required">required</span></label>
+                <input class="text medium-long-field" type="text" id="URL-text-input" name="URL-text-input" title="URL Text input" required="required" />
+            </div>
+            <div class="field-group">
+                <label for="Servicename-text-input">USU Servicename<span class="aui-icon icon-required">required</span></label>
+                <input class="text medium-long-field" type="text" id="Servicename-text-input" name="Servicename-text-input" title="Servicename Text input" required="required" />
+            </div>
+            <div class="field-group">
+                <label for="Username-text-input">USU Username<span class="aui-icon icon-required">required</span></label>
+                <input class="text medium-long-field" type="text" id="Username-text-input" name="Username-text-input" title="Username Text input" required="required" />
+            </div>
+            <div class="field-group">
+                <label for="AccessToken-text-input">USU AccessToken<span class="aui-icon icon-required">required</span></label>
+                <input class="text medium-long-field" type="text" id="AccessToken-text-input" name="AccessToken-text-input" title="AccessToken Text input" required="required" />
+            </div>
+            <div class="field-group">
+                <label for="CryptedPassword-text-input">USU Password<span class="aui-icon icon-required">required</span></label>
+                <input class="text medium-long-field" type="text" id="CryptedPassword-text-input" name="CryptedPassword-text-input" title="CryptedPassword Text input" required="required" />
+            </div>
+            <div class="field-group">
+                <label for="Client-text-input">USU Client<span class="aui-icon icon-required">required</span></label>
+                <input class="text medium-long-field" type="text" id="Client-text-input" name="Client-text-input" title="Client Text input" required="required" />
+                <span class="underline-cfj"></span>
+            </div>
+            <!--<span class="underline-cfj"></span>-->
+            <div class="field-group" >
+                <label for="InterfaceKey-text-input">InterfaceKey<span class="aui-icon icon-required">required</span></label>
+                <input class="text  medium-long-field" type="text" id="InterfaceKey-text-input" name="InterfaceKey-text-input" title="InterfaceKey text input" required="required" />
+                <div class="description-cfj">A unique key used to ensure the communication via <b>webhooks</b>.</div>
+            </div>
+            <div class="field-group">
+                <label for="ACID-text-input">Account Id<span class="aui-icon icon-required">required</span></label>
+                <input class="text  medium-long-field" type="text" id="ACID-text-input" name="ACID-text-input" title="ACID Text input" required="required" />
+                <button class="aui-button" id="accountId-button" type="button">Get Current</button>
+                <div class="description-cfj">Account ID of the Jira User used in the Generic Interface.</div>
+            </div>
+
+            <div class="field-group" style="margin-top: 10px;">
+                <span class="underline-cfj" style="margin: 0px;"></span>
+                <p>Save first before testing the connection.</p>
+            </div>
+            <div class="field-group aui-buttons">
+                <input class="aui-button aui-button-primary" type="submit" value="Save Settings" id="save_settings_button">
+                <button class="aui-button" id="connection-button" type="button" style="margin-left: 18px;">Test Connection</button>
+            </div>
+        </form>
+    </div>
+    <div class="tabs-pane" id="tabs-oauth2">
+        <form id="OauthForm" class="aui">
+            <div class="field-group">
+                <a id="getAuthInfoLink" href="https://developer.atlassian.com/console/">Create and manage your OAuth 2.0 integrations.</a>
+            </div>
+            <div class="field-group">
+                <label for="OACID-text-input">Client ID<span class="aui-icon icon-required">required</span></label>
+                <input placeholder="Copy the integration's Client ID here" class="text medium-long-field" type="text" id="OACID-text-input" name="ExToken-text-input" title="OACID Text input" required="required">
+            </div>
+
+            <div class="field-group">
+                <label for="OAS-text-input">Secret<span class="aui-icon icon-required">required</span></label>
+                <input placeholder="Copy the integration's Secret here" class="text medium-long-field" type="password" id="OAS-text-input" name="OAS-text-input" title="OAS Text input" required="required">
+            </div>
+
+            <div class="field-group">
+                    <label for="OAURL-input">Plain text Auth URL</label>
+                    <textarea style=" height: 68px;" class="textarea medium-long-field" name="OAURL-input"
+                              id="OAURL-input" placeholder="Paste the plain integration's authorization URL here"></textarea>
+                    <div class="description-cfj">Save to get the authorization URL with specific user bound values.</div>
+            </div>
+            <div id="div-OAURLGEN" class="field-group" style="display:none">
+                <label for="OAURLGEN-input">Authorization URL</label>
+                <textarea style=" height: 68px;" class="textarea medium-long-field" name="OAURLGEN-input"
+                    id="OAURLGEN-input"></textarea>
+            </div>
+            
+            <div class="field-group auth-buttons">
+                    <span class="underline-cfj" style=" margin: 0px 0px 15px 0px;"></span>
+                    <input class="aui-button aui-button-primary" type="submit" value="Save and generate URL" id="auth-button">
+            </div>
+        </form>
+    </div>
+    <div class="tabs-pane" id="tabs-basic-auth">
+            <form id="Basic-AuthForm" class="aui">
+            <!-- BASIC AUTHORIZATION -->
+                <div class="field-group">
+                    <label for="ExUsername-text-input">Jira Username<span class="aui-icon icon-required">required</span></label>
+                    <input class="text medium-long-field" type="text" id="ExUsername-text-input" name="ExUsername-text-input" title="ExUsename Text input">
+                </div>
+                <div class="field-group">
+                    <label for="ExToken-text-input">Jira API Token<span class="aui-icon icon-required">required</span></label>
+                    <input class="text medium-long-field" type="password" id="ExToken-text-input" name="ExToken-text-input" title="ExToken Text input">
+                    <button class="aui-button" id="copy-api-token-button" type="button"><span class="aui-icon aui-icon-small aui-iconfont-copy"></span></button>
+                </div>
+                <div class="field-group">
+                    <label for="CloudURL-text-input">Host Base URL<span class="aui-icon icon-required">required</span></label>
+                    <input value="{{hostBaseUrl}}" class="text medium-long-field" type="text" id="CloudURL-text-input" name="CloudURL-text-input" title="CloudURL Text input">
+                </div>
+                <div class="field-group">
+                    <span class="underline-cfj" style=" margin: 10px 0px 0px 0px;"></span>
+                    <div class="wh-url-title-cfj"><b>WebHookURL</b></div>
+                    <div class="web-description-cfj">{{localBaseUrl}}api/v1/hooks-basic?interfacekey=<b><span class="webhookPath"></span></b>&issue_key=${issue.key}</div>
+                    <span class="underline-cfj" style=" margin: 25px 0px 7px 0px;"></span>
+                </div>
+                <div class="field-group auth-buttons">
+                        <input class="aui-button aui-button-primary" type="submit" value="Save Settings" id="auth-basic-button">
+                        <button class="aui-button" id="jira-connection-button" type="button">Test Jira Connection</button>
+                </div>
+            </form>
+    </div>
+    <!-- WEBHOOK TABS -->
+    <div class="tabs-pane" id="tabs-webhooks">
+        <form class="aui">
+            <div class="field-group">
+                <label for="whJQL-text-input">JQL filter</label>
+                <textarea id="whJQL-text-input" class="textarea search-entry advanced-search ajs-dirty-warning-exempt text full-width-field" placeholder='project IN (PROJ, EXP) AND status = done' name="whJQL-text-input" autocomplete="off" style="overflow: hidden; height: 48px; width: 370px;"></textarea>
+                <div class="description-cfj"><b>Supported JQL queries:</b><br>
+                    issueKey, project, issuetype, status, assignee, reporter, issue.property, cf[id].<br>
+                    For custom fields (cf[id]), only the epic label custom field is supported.
+                </div>
+                <div class="description-cfj">
+                    <b>Supported operators:</b><br> =, !=, IN, and NOT IN
+                </div>
+            </div>
+            <div class="field-group">
+                <label for="issue-events">Events</label>
+                <div id="issue-events" class="webhook-section-cfj">
+                    <div class="event-group-cfj">
+                        <ul class="display-mode-display-cfj">
+                            <h4>Issue</h4>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-created" value="jira:issue_created">
+                                    <label for="cb-issue-created">created</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-updated" value="jira:issue_updated">
+                                    <label for="cb-issue-updated">updated</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-deleted" value="jira:issue_deleted" disabled>
+                                    <label for="cb-issue-deleted">deleted</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="event-group-cfj">
+                        <ul class="display-mode-display-cfj">
+                            <h4>Comment</h4>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-cm-created" value="comment_created">
+                                    <label for="cb-issue-cm-created">created</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-cm-edited" value="comment_updated">
+                                    <label for="cb-issue-cm-edited">updated</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-cm-deleted" value="comment_deleted" disabled>
+                                    <label for="cb-issue-cm-deleted">deleted</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="event-group-cfj">
+                        <ul class="display-mode-display-cfj">
+                            <h4>Issue property</h4>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-set-created" value="issue_property_set" disabled>
+                                    <label for="cb-issue-set-created">created or updated</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <input class="checkbox" type="checkbox" name="event" id="cb-issue-pr-deleted"  value="issue_property_deleted" disabled>
+                                    <label for="cb-issue-pr-deleted">deleted</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="field-group">
+                <button class="aui-button aui-button-primary" id="create-webhooks" type="button">Create WebHook</button>
+                <span class="underline-cfj" style=" margin: 25px 0px 10px 0px;"></span>
+            </div>
+            <div class="field-group">
+                <h4 id="wht-headline">Registered WebHooks</h4>
+                <table class="aui" id="wht-table">
+                    <thead id="wht-tablehead-cfj">
+                    <tr>
+                        <th id="wh-number">#</th>
+                        <th id="wh-jqfilter">JQLFilter</th>
+                        <th id="wh-events">Events</th>
+                        <th id="wh-exDates">Expiration Date</th>
+                        <th id="wh-status">Status</th>
+                        <th id="wh-action">Action</th>
+                    </tr>
+                    </thead>
+                     <!--content is added through js-->
+                    <tbody id="wht-body-cfj"></tbody>
+                    <tbody>
+                        <div id="search-wh-div" style="display:none;">
+                            <p>Loading results...</p>
+                            <aui-spinner size="large"></aui-spinner>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+
+

@@ -1,0 +1,79 @@
+{
+    "key": "com.sykorait.jira.plugins.USU-Service-Management-Connector",
+    "name": "USU Service Management Connector for Jira",
+    "description": "Integration between USU Service Management (Valuemation) and Jira.",
+    "vendor": {
+        "name": "Sykora IT s.r.o.",
+        "url": "http://www.sykorait.com/"
+    },
+    "links": {
+        "self": "https://usujira.sykorait.cloud/atlassian-connect.json"
+    },
+    "baseUrl": "{{localBaseUrl}}",
+    "enableLicensing": true,
+    "authentication": {
+        "type": "jwt"
+    },
+    "apiMigrations": {
+        "context-qsh": true,
+        "gdpr": true,
+        "signed-install": true
+    },
+    "lifecycle": {
+        "installed": "/installed",
+        "uninstalled": "/uninstalled"
+    },
+    "scopes": [
+        "READ", "WRITE"
+    ],
+    "modules": {
+        "jiraEntityProperties": [
+            {
+              "keyConfigurations": [
+                {
+                  "extractions": [
+                    {
+                      "objectName": "syncWithUSU",
+                      "type": "string",
+                      "alias": "syncWithUSU"
+                    }
+                  ],
+                  "propertyKey": "issueUSUProperties"
+                }
+              ],
+              "entityType": "issue",
+              "name": {
+                "value": "Issue USU Property"
+              },
+              "key": "issueUSU-property"
+            }
+        ],
+        "adminPages": [
+            {
+                "url": "/admin-form",
+                "name": {
+                    "value": "Settings"
+                },
+                "key": "my-admin-page",
+                "conditions": [
+                    {
+                        "condition": "user_is_logged_in"
+                    },
+                    {
+                        "condition": "user_is_admin"
+                    }
+                ],
+                "location": "admin_plugins_menu/admin-setting-page-section"
+            }
+        ],
+        "webSections": [
+            {
+                "key": "admin-setting-page-section",
+                "location": "admin_plugins_menu",
+                "name": {
+                    "value": "USU-Service-Management-Connector"
+                }
+            }
+        ]
+    }
+}
